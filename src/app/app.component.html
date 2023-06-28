@@ -1,0 +1,48 @@
+<!-- a shell or container for your angular appplication -->
+
+
+<!-- Web's title, Blue -->
+<h3 class="bg-primary text-center text-white p-2">{{ username }}'s TODO List
+<h6 class ="mt-1">{{ itemCount }} Incomplete Items</h6>
+</h3>
+
+<!-- 添加待办事项 -->
+
+<div class ="container-fluid">
+  <div class = "row">
+    <div class = "col">
+      <input class = "form-control" placeholder="Enter task here" #todoText />
+    </div>
+      <button class="btn btn-primary" (click) = "addItem(todoText.value)">
+        Add
+      </button>
+  </div>
+</div>
+
+
+<div class="m-2">
+  <!-- 显示待办事项列表，Table basic, column's title, checkbox -->
+  <table class="table table-striped table-borded table-sm">
+    <thead>
+        <tr><th>No.</th><th>Todos</th><th>Done?</th></tr>
+    </thead>
+    <tbody>
+      <!-- *ngfor angular‘s for loop -->
+      <tr *ngFor= "let item of items; let i = index">
+        <td>{{i + 1}}</td>
+        <td>{{item.task}}</td>
+        <!-- ngModel binds the value of checked box and item.complete -->
+        <td>
+          <!-- [()] = 双向绑定 -->
+          <input type = "checkbox" [(ngModel)] = "item.complete" />
+        </td>
+        <!-- [ngSwitch] 表达式是一个条件语句， depends on item.complete's value-->
+        <td [ngSwitch] = "item.complete">
+          <span *ngSwitchCase = "true">Yes</span>
+          <!-- when none of the *ngSwitchDefault, when none of the switch case match, display "No"-->
+          <span *ngSwitchDefault>No</span>
+        </td>
+      </tr> 
+    </tbody>
+  </table>  
+</div>
