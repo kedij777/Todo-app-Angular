@@ -3,7 +3,10 @@
 
 <!-- Web's title, Blue -->
 <h3 class="bg-primary text-center text-white p-2">{{ username }}'s TODO List
-<h6 class ="mt-1">{{ itemCount }} Incomplete Items</h6>
+  <!-- If showComplete is truthy (e.g., true), it will show an empty string "".
+If showComplete is falsy (e.g., false), it will show the text "Incomplete Items". -->
+
+<h6 class ="mt-1"> {{ itemCount }} {{ showComplete ? "" : "Incomplete Items" }} Items</h6>
 </h3>
 
 <!-- 添加待办事项 -->
@@ -13,6 +16,7 @@
     <div class = "col">
       <input class = "form-control" placeholder="Enter task here" #todoText />
     </div>
+    <!-- event binding -->
       <button class="btn btn-primary" (click) = "addItem(todoText.value)">
         Add
       </button>
@@ -37,12 +41,21 @@
           <input type = "checkbox" [(ngModel)] = "item.complete" />
         </td>
         <!-- [ngSwitch] 表达式是一个条件语句， depends on item.complete's value-->
-        <td [ngSwitch] = "item.complete">
+        <!-- <td [ngSwitch] = "item.complete">
           <span *ngSwitchCase = "true">Yes</span>
-          <!-- when none of the *ngSwitchDefault, when none of the switch case match, display "No"-->
+           when none of the *ngSwitchDefault, when none of the switch case match, display "No"
           <span *ngSwitchDefault>No</span>
-        </td>
+        </td> -->
       </tr> 
     </tbody>
   </table>  
+</div>
+
+<div class = "bg-secondary text-white text-center p-2">
+  <div class="form-check">
+    <input class = "form-check-input" type="checkbox" [(ngModel)] = "showComplete"/>
+    <label class="form-check-label" for="defaultCheck1">
+      Show Completed Tasks
+    </label>
+  </div>
 </div>
